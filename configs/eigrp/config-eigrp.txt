@@ -1,0 +1,117 @@
+R1#sh ip route Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2 E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+* - candidate default, U - per-user static route, o - ODR P - periodic downloaded static route
+Gateway of last resort is not set
+ 10.0.0.0/8 is variably subnetted, 7 subnets, 2 masks
+C 10.0.1.0/30 is directly connected, GigabitEthernet0/0 L 10.0.1.1/32 is directly connected, GigabitEthernet0/0 C 10.0.2.0/30 is directly connected, GigabitEthernet0/1 L 10.0.2.1/32 is directly connected, GigabitEthernet0/1 D 10.0.3.0/30 [90/3072] via 10.0.2.2, 00:00:23, GigabitEthernet0/1 [90/3072] via 10.0.1.2, 00:00:23, GigabitEthernet0/0 D 10.0.4.0/30 [90/3072] via 10.0.1.2, 00:00:23, GigabitEthernet0/0 D 10.0.5.0/30 [90/3072] via 10.0.2.2, 00:00:23, GigabitEthernet0/1 192.168.10.0/24 is variably subnetted, 2 subnets, 2 masks C 192.168.10.0/24 is directly connected, GigabitEthernet0/2 L 192.168.10.1/32 is directly connected, GigabitEthernet0/2 D 192.168.20.0/24 [90/28672] via 10.0.2.2, 00:00:23, GigabitEthernet0/1 [90/28672] via 10.0.1.2, 00:00:22, GigabitEthernet0/0
+
+R1#show ip eigrp topology IP-EIGRP Topology Table for AS 100/ID(192.168.10.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply, r - Reply status
+P 10.0.1.0/30, 1 successors, FD is 2816 via Connected, GigabitEthernet0/0 P 10.0.2.0/30, 1 successors, FD is 2816 via Connected, GigabitEthernet0/1 P 10.0.3.0/30, 2 successors, FD is 3072 via 10.0.2.2 (3072/2816), GigabitEthernet0/1 via 10.0.1.2 (3072/2816), GigabitEthernet0/0 P 10.0.4.0/30, 1 successors, FD is 3072 via 10.0.1.2 (3072/2816), GigabitEthernet0/0 P 10.0.5.0/30, 1 successors, FD is 3072 via 10.0.2.2 (3072/2816), GigabitEthernet0/1 P 192.168.10.0/24, 1 successors, FD is 28160 via Connected, GigabitEthernet0/2 P 192.168.20.0/24, 2 successors, FD is 28672 via 10.0.2.2 (28672/28416), GigabitEthernet0/1 via 10.0.1.2 (28672/28416), GigabitEthernet0/0
+
+
+-------------------------------------------------------------------
+
+R2#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 8 subnets, 2 masks
+C       10.0.1.0/30 is directly connected, GigabitEthernet0/0
+L       10.0.1.2/32 is directly connected, GigabitEthernet0/0
+D       10.0.2.0/30 [90/3072] via 10.0.1.1, 00:00:15, GigabitEthernet0/0
+                    [90/3072] via 10.0.3.2, 00:00:15, GigabitEthernet0/1
+C       10.0.3.0/30 is directly connected, GigabitEthernet0/1
+L       10.0.3.1/32 is directly connected, GigabitEthernet0/1
+C       10.0.4.0/30 is directly connected, GigabitEthernet0/2
+L       10.0.4.1/32 is directly connected, GigabitEthernet0/2
+D       10.0.5.0/30 [90/3072] via 10.0.4.2, 00:00:15, GigabitEthernet0/2
+                    [90/3072] via 10.0.3.2, 00:00:15, GigabitEthernet0/1
+D    192.168.10.0/24 [90/28416] via 10.0.1.1, 00:00:15, GigabitEthernet0/0
+D    192.168.20.0/24 [90/28416] via 10.0.4.2, 00:00:15, GigabitEthernet0/2
+
+R2#show ip eigrp topology
+IP-EIGRP Topology Table for AS 100/ID(10.0.4.1)
+
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - Reply status
+
+P 10.0.1.0/30, 1 successors, FD is 2816
+         via Connected, GigabitEthernet0/0
+P 10.0.2.0/30, 2 successors, FD is 3072
+         via 10.0.1.1 (3072/2816), GigabitEthernet0/0
+         via 10.0.3.2 (3072/2816), GigabitEthernet0/1
+P 10.0.3.0/30, 1 successors, FD is 2816
+         via Connected, GigabitEthernet0/1
+P 10.0.4.0/30, 1 successors, FD is 2816
+         via Connected, GigabitEthernet0/2
+P 10.0.5.0/30, 2 successors, FD is 3072
+         via 10.0.4.2 (3072/2816), GigabitEthernet0/2
+         via 10.0.3.2 (3072/2816), GigabitEthernet0/1
+P 192.168.10.0/24, 1 successors, FD is 28416
+         via 10.0.1.1 (28416/28160), GigabitEthernet0/0
+P 192.168.20.0/24, 1 successors, FD is 28416
+         via 10.0.4.2 (28416/28160), GigabitEthernet0/2
+
+-------------------------------------------------------------------
+
+R3#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 8 subnets, 2 masks
+D       10.0.1.0/30 [90/3072] via 10.0.3.1, 00:01:40, GigabitEthernet0/1
+                    [90/3072] via 10.0.2.1, 00:01:40, GigabitEthernet0/0
+C       10.0.2.0/30 is directly connected, GigabitEthernet0/0
+L       10.0.2.2/32 is directly connected, GigabitEthernet0/0
+C       10.0.3.0/30 is directly connected, GigabitEthernet0/1
+L       10.0.3.2/32 is directly connected, GigabitEthernet0/1
+D       10.0.4.0/30 [90/3072] via 10.0.5.2, 00:01:40, GigabitEthernet0/2
+                    [90/3072] via 10.0.3.1, 00:01:40, GigabitEthernet0/1
+C       10.0.5.0/30 is directly connected, GigabitEthernet0/2
+L       10.0.5.1/32 is directly connected, GigabitEthernet0/2
+D    192.168.10.0/24 [90/28416] via 10.0.2.1, 00:01:40, GigabitEthernet0/0
+D    192.168.20.0/24 [90/28416] via 10.0.5.2, 00:01:40, GigabitEthernet0/2
+
+R3#sh ip eigrp topology
+IP-EIGRP Topology Table for AS 100/ID(10.0.5.1)
+
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - Reply status
+
+P 10.0.1.0/30, 2 successors, FD is 3072
+         via 10.0.3.1 (3072/2816), GigabitEthernet0/1
+         via 10.0.2.1 (3072/2816), GigabitEthernet0/0
+P 10.0.2.0/30, 1 successors, FD is 2816
+         via Connected, GigabitEthernet0/0
+P 10.0.3.0/30, 1 successors, FD is 2816
+         via Connected, GigabitEthernet0/1
+P 10.0.4.0/30, 2 successors, FD is 3072
+         via 10.0.5.2 (3072/2816), GigabitEthernet0/2
+         via 10.0.3.1 (3072/2816), GigabitEthernet0/1
+P 10.0.5.0/30, 1 successors, FD is 2816
+         via Connected, GigabitEthernet0/2
+P 192.168.10.0/24, 1 successors, FD is 28416
+         via 10.0.2.1 (28416/28160), GigabitEthernet0/0
+P 192.168.20.0/24, 1 successors, FD is 28416
+         via 10.0.5.2 (28416/28160), GigabitEthernet0/2
+
+-------------------------------------------------------------------
+
+
+
+
+
