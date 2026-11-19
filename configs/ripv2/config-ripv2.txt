@@ -1,0 +1,113 @@
+
+R1#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 7 subnets, 2 masks
+C       10.0.1.0/30 is directly connected, GigabitEthernet0/0
+L       10.0.1.1/32 is directly connected, GigabitEthernet0/0
+C       10.0.2.0/30 is directly connected, GigabitEthernet0/1
+L       10.0.2.1/32 is directly connected, GigabitEthernet0/1
+R       10.0.3.0/30 [120/1] via 10.0.1.2, 00:00:17, GigabitEthernet0/0
+                    [120/1] via 10.0.2.2, 00:00:17, GigabitEthernet0/1
+R       10.0.4.0/30 [120/1] via 10.0.1.2, 00:00:17, GigabitEthernet0/0
+R       10.0.5.0/30 [120/1] via 10.0.2.2, 00:00:17, GigabitEthernet0/1
+     192.168.10.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.10.0/24 is directly connected, GigabitEthernet0/2
+L       192.168.10.1/32 is directly connected, GigabitEthernet0/2
+R    192.168.20.0/24 [120/2] via 10.0.1.2, 00:00:17, GigabitEthernet0/0
+                     [120/2] via 10.0.2.2, 00:00:17, GigabitEthernet0/1
+
+
+-----------------------------------------------------------------------------------------
+
+
+R2#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 8 subnets, 2 masks
+C       10.0.1.0/30 is directly connected, GigabitEthernet0/0
+L       10.0.1.2/32 is directly connected, GigabitEthernet0/0
+R       10.0.2.0/30 [120/1] via 10.0.3.2, 00:00:10, GigabitEthernet0/1
+                    [120/1] via 10.0.1.1, 00:00:18, GigabitEthernet0/0
+C       10.0.3.0/30 is directly connected, GigabitEthernet0/1
+L       10.0.3.1/32 is directly connected, GigabitEthernet0/1
+C       10.0.4.0/30 is directly connected, GigabitEthernet0/2
+L       10.0.4.1/32 is directly connected, GigabitEthernet0/2
+R       10.0.5.0/30 [120/1] via 10.0.3.2, 00:00:10, GigabitEthernet0/1
+                    [120/1] via 10.0.4.2, 00:00:10, GigabitEthernet0/2
+R    192.168.10.0/24 [120/1] via 10.0.1.1, 00:00:18, GigabitEthernet0/0
+R    192.168.20.0/24 [120/1] via 10.0.4.2, 00:00:10, GigabitEthernet0/2
+
+-----------------------------------------------------------------------------------------
+
+R3#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 8 subnets, 2 masks
+R       10.0.1.0/30 [120/1] via 10.0.3.1, 00:00:03, GigabitEthernet0/1
+                    [120/1] via 10.0.2.1, 00:00:10, GigabitEthernet0/0
+C       10.0.2.0/30 is directly connected, GigabitEthernet0/0
+L       10.0.2.2/32 is directly connected, GigabitEthernet0/0
+C       10.0.3.0/30 is directly connected, GigabitEthernet0/1
+L       10.0.3.2/32 is directly connected, GigabitEthernet0/1
+R       10.0.4.0/30 [120/1] via 10.0.5.2, 00:00:03, GigabitEthernet0/2
+                    [120/1] via 10.0.3.1, 00:00:03, GigabitEthernet0/1
+C       10.0.5.0/30 is directly connected, GigabitEthernet0/2
+L       10.0.5.1/32 is directly connected, GigabitEthernet0/2
+R    192.168.10.0/24 [120/1] via 10.0.2.1, 00:00:10, GigabitEthernet0/0
+R    192.168.20.0/24 [120/1] via 10.0.5.2, 00:00:03, GigabitEthernet0/2
+
+-----------------------------------------------------------------------------------------
+
+R4#sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     10.0.0.0/8 is variably subnetted, 7 subnets, 2 masks
+R       10.0.1.0/30 [120/1] via 10.0.4.1, 00:00:04, GigabitEthernet0/2
+R       10.0.2.0/30 [120/1] via 10.0.5.1, 00:00:05, GigabitEthernet0/1
+R       10.0.3.0/30 [120/1] via 10.0.4.1, 00:00:04, GigabitEthernet0/2
+                    [120/1] via 10.0.5.1, 00:00:05, GigabitEthernet0/1
+C       10.0.4.0/30 is directly connected, GigabitEthernet0/2
+L       10.0.4.2/32 is directly connected, GigabitEthernet0/2
+C       10.0.5.0/30 is directly connected, GigabitEthernet0/1
+L       10.0.5.2/32 is directly connected, GigabitEthernet0/1
+R    192.168.10.0/24 [120/2] via 10.0.4.1, 00:00:04, GigabitEthernet0/2
+                     [120/2] via 10.0.5.1, 00:00:05, GigabitEthernet0/1
+     192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+C       192.168.20.0/24 is directly connected, GigabitEthernet0/0
+L       192.168.20.1/32 is directly connected, GigabitEthernet0/0
+
+
+
